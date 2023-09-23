@@ -48,7 +48,7 @@ limitations under the License.
 ## Usage
 
 ```javascript
-import nanmskmax from 'https://cdn.jsdelivr.net/gh/stdlib-js/stats-base-nanmskmax@deno/mod.js';
+import nanmskmax from 'https://cdn.jsdelivr.net/gh/stdlib-js/stats-base-nanmskmax@v0.1.0-deno/mod.js';
 ```
 
 #### nanmskmax( N, x, strideX, mask, strideMask )
@@ -161,7 +161,7 @@ import randu from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-base-randu@deno/
 import round from 'https://cdn.jsdelivr.net/gh/stdlib-js/math-base-special-round@deno/mod.js';
 import Float64Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@deno/mod.js';
 import Uint8Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-uint8@deno/mod.js';
-import nanmskmax from 'https://cdn.jsdelivr.net/gh/stdlib-js/stats-base-nanmskmax@deno/mod.js';
+import nanmskmax from 'https://cdn.jsdelivr.net/gh/stdlib-js/stats-base-nanmskmax@v0.1.0-deno/mod.js';
 
 var mask;
 var x;
