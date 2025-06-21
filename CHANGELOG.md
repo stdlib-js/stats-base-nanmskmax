@@ -4,7 +4,29 @@
 
 <section class="release" id="unreleased">
 
-## Unreleased (2025-06-10)
+## Unreleased (2025-06-21)
+
+<section class="features">
+
+### Features
+
+-   [`b8ecd9a`](https://github.com/stdlib-js/stdlib/commit/b8ecd9a449e907c0a0e416242b09d79cb602c998) - add accessor protocol and refactor `stats/base/nanmskmax` [(#6161)](https://github.com/stdlib-js/stdlib/pull/6161)
+
+</section>
+
+<!-- /.features -->
+
+<section class="issues">
+
+### Closed Issues
+
+This release closes the following issue:
+
+[#5662](https://github.com/stdlib-js/stdlib/issues/5662)
+
+</section>
+
+<!-- /.issues -->
 
 <section class="commits">
 
@@ -12,6 +34,7 @@
 
 <details>
 
+-   [`b8ecd9a`](https://github.com/stdlib-js/stdlib/commit/b8ecd9a449e907c0a0e416242b09d79cb602c998) - **feat:** add accessor protocol and refactor `stats/base/nanmskmax` [(#6161)](https://github.com/stdlib-js/stdlib/pull/6161) _(by Rahul Kumar, Athan Reines, Gururaj Gurram)_
 -   [`c313ded`](https://github.com/stdlib-js/stdlib/commit/c313ded7f981c1b180883cfafe1538cb48c10fe1) - **refactor:** update paths _(by Gururaj Gurram)_
 -   [`3dad15a`](https://github.com/stdlib-js/stdlib/commit/3dad15a335e8f20c1747ceacbefd6cecefce8c8d) - **refactor:** update paths _(by Gururaj Gurram)_
 -   [`c10df04`](https://github.com/stdlib-js/stdlib/commit/c10df047e12919f5abf97e075ba31a2f9b98cf84) - **refactor:** update paths _(by Gururaj Gurram)_
@@ -28,10 +51,11 @@
 
 ### Contributors
 
-A total of 2 people contributed to this release. Thank you to the following contributors:
+A total of 3 people contributed to this release. Thank you to the following contributors:
 
 -   Athan Reines
 -   Gururaj Gurram
+-   Rahul Kumar
 
 </section>
 
