@@ -41,43 +41,37 @@ limitations under the License.
 
 <!-- /.intro -->
 
+<section class="installation">
 
+## Installation
+
+```bash
+npm install @stdlib/stats-base-nanmskmax
+```
+
+Alternatively,
+
+-   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm`][esm-url] branch (see [README][esm-readme]).
+-   If you are using Deno, visit the [`deno`][deno-url] branch (see [README][deno-readme] for usage intructions).
+-   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd`][umd-url] branch (see [README][umd-readme]).
+
+The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
+
+To view installation and usage instructions specific to each branch build, be sure to explicitly navigate to the respective README files on each branch, as linked to above.
+
+</section>
 
 <section class="usage">
 
 ## Usage
 
-To use in Observable,
-
 ```javascript
-nanmskmax = require( 'https://cdn.jsdelivr.net/gh/stdlib-js/stats-base-nanmskmax@umd/browser.js' )
-```
-
-To vendor stdlib functionality and avoid installing dependency trees for Node.js, you can use the UMD server build:
-
-```javascript
-var nanmskmax = require( 'path/to/vendor/umd/stats-base-nanmskmax/index.js' )
-```
-
-To include the bundle in a webpage,
-
-```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/stats-base-nanmskmax@umd/browser.js"></script>
-```
-
-If no recognized module system is present, access bundle contents via the global scope:
-
-```html
-<script type="text/javascript">
-(function () {
-    window.nanmskmax;
-})();
-</script>
+var nanmskmax = require( '@stdlib/stats-base-nanmskmax' );
 ```
 
 #### nanmskmax( N, x, strideX, mask, strideMask )
 
-Computes the maximum value of a strided array `x` according to a `mask`, ignoring `NaN` values.
+Computes the maximum value of a strided array according to a `mask`, ignoring `NaN` values.
 
 ```javascript
 var x = [ 1.0, -2.0, 4.0, 2.0, NaN ];
@@ -91,41 +85,35 @@ The function has the following parameters:
 
 -   **N**: number of indexed elements.
 -   **x**: input [`Array`][mdn-array] or [`typed array`][mdn-typed-array].
--   **strideX**: index increment for `x`.
+-   **strideX**: stride length for `x`.
 -   **mask**: mask [`Array`][mdn-array] or [`typed array`][mdn-typed-array]. If a `mask` array element is `0`, the corresponding element in `x` is considered valid and **included** in computation. If a `mask` array element is `1`, the corresponding element in `x` is considered invalid/missing and **excluded** from computation.
--   **strideMask**: index increment for `mask`.
+-   **strideMask**: stride length for `mask`.
 
-The `N` and `stride` parameters determine which elements are accessed at runtime. For example, to compute the maximum value of every other element in `x`,
+The `N` and stride parameters determine which elements in the strided arrays are accessed at runtime. For example, to compute the maximum value of every other element in `x`,
 
 ```javascript
-var floor = require( '@stdlib/math-base-special-floor' );
+var x = [ 1.0, 2.0, -7.0, -2.0, 4.0, 3.0, 5.0, 6.0, NaN, NaN ];
+var mask = [ 0, 0, 0, 0, 0, 0, 1, 1, 0, 0 ];
 
-var x = [ 1.0, 2.0, -7.0, -2.0, 4.0, 3.0, 5.0, 6.0 ];
-var mask = [ 0, 0, 0, 0, 0, 0, 1, 1 ];
-var N = floor( x.length / 2 );
-
-var v = nanmskmax( N, x, 2, mask, 2 );
+var v = nanmskmax( 5, x, 2, mask, 2 );
 // returns 4.0
 ```
 
 Note that indexing is relative to the first index. To introduce offsets, use [`typed array`][mdn-typed-array] views.
 
-<!-- eslint-disable stdlib/capitalized-comments -->
+<!-- eslint-disable stdlib/capitalized-comments, max-len -->
 
 ```javascript
 var Float64Array = require( '@stdlib/array-float64' );
 var Uint8Array = require( '@stdlib/array-uint8' );
-var floor = require( '@stdlib/math-base-special-floor' );
 
-var x0 = new Float64Array( [ 2.0, 1.0, -2.0, -2.0, 3.0, 4.0, 5.0, 6.0 ] );
+var x0 = new Float64Array( [ 2.0, 1.0, -2.0, -2.0, 3.0, 4.0, 5.0, 6.0, NaN, NaN ] );
 var x1 = new Float64Array( x0.buffer, x0.BYTES_PER_ELEMENT*1 ); // start at 2nd element
 
-var mask0 = new Uint8Array( [ 0, 0, 0, 0, 0, 0, 1, 1 ] );
+var mask0 = new Uint8Array( [ 0, 0, 0, 0, 0, 0, 1, 1, 0, 0 ] );
 var mask1 = new Uint8Array( mask0.buffer, mask0.BYTES_PER_ELEMENT*1 ); // start at 2nd element
 
-var N = floor( x0.length / 2 );
-
-var v = nanmskmax( N, x1, 2, mask1, 2 );
+var v = nanmskmax( 5, x1, 2, mask1, 2 );
 // returns 4.0
 ```
 
@@ -146,16 +134,13 @@ The function has the following additional parameters:
 -   **offsetX**: starting index for `x`.
 -   **offsetMask**: starting index for `mask`.
 
-While [`typed array`][mdn-typed-array] views mandate a view offset based on the underlying `buffer`, the `offset` parameter supports indexing semantics based on a starting index. For example, to calculate the maximum value for every other value in `x` starting from the second value
+While [`typed array`][mdn-typed-array] views mandate a view offset based on the underlying buffer, the offset parameters support indexing semantics based on starting indices. For example, to calculate the maximum value for every other element in `x` starting from the second element
 
 ```javascript
-var floor = require( '@stdlib/math-base-special-floor' );
+var x = [ 2.0, 1.0, -2.0, -2.0, 3.0, 4.0, 5.0, 6.0, NaN, NaN ];
+var mask = [ 0, 0, 0, 0, 0, 0, 1, 1, 0, 0 ];
 
-var x = [ 2.0, 1.0, -2.0, -2.0, 3.0, 4.0, 5.0, 6.0 ];
-var mask = [ 0, 0, 0, 0, 0, 0, 1, 1 ];
-var N = floor( x.length / 2 );
-
-var v = nanmskmax.ndarray( N, x, 2, 1, mask, 2, 1 );
+var v = nanmskmax.ndarray( 5, x, 2, 1, mask, 2, 1 );
 // returns 4.0
 ```
 
@@ -169,6 +154,7 @@ var v = nanmskmax.ndarray( N, x, 2, 1, mask, 2, 1 );
 
 -   If `N <= 0`, both functions return `NaN`.
 -   Depending on the environment, the typed versions ([`dnanmskmax`][@stdlib/stats/strided/dnanmskmax], [`snanmskmax`][@stdlib/stats/strided/snanmskmax], etc.) are likely to be significantly more performant.
+-   Both functions support array-like objects having getter and setter accessors for array element access (e.g., [`@stdlib/array-base/accessor`][@stdlib/array/base/accessor]).
 
 </section>
 
@@ -180,46 +166,27 @@ var v = nanmskmax.ndarray( N, x, 2, 1, mask, 2, 1 );
 
 <!-- eslint no-undef: "error" -->
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<body>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/random-base-randu@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/math-base-special-round@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/array-uint8@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/stats-base-nanmskmax@umd/browser.js"></script>
-<script type="text/javascript">
-(function () {
+```javascript
+var uniform = require( '@stdlib/random-base-uniform' );
+var bernoulli = require( '@stdlib/random-base-bernoulli' );
+var filledarrayBy = require( '@stdlib/array-filled-by' );
+var nanmskmax = require( '@stdlib/stats-base-nanmskmax' );
 
-var mask;
-var x;
-var i;
-
-x = new Float64Array( 10 );
-mask = new Uint8Array( x.length );
-for ( i = 0; i < x.length; i++ ) {
-    if ( randu() < 0.2 ) {
-        mask[ i ] = 1;
-    } else {
-        mask[ i ] = 0;
+function rand() {
+    if ( bernoulli( 0.8 ) < 1 ) {
+        return NaN;
     }
-    if ( randu() < 0.1 ) {
-        x[ i ] = NaN;
-    } else {
-        x[ i ] = round( (randu()*100.0) - 50.0 );
-    }
+    return uniform( -50.0, 50.0 );
 }
+
+var x = filledarrayBy( 10, 'float64', rand );
 console.log( x );
+
+var mask = filledarrayBy( x.length, 'uint8', bernoulli.factory( 0.2 ) );
 console.log( mask );
 
 var v = nanmskmax( x.length, x, 1, mask, 1 );
 console.log( v );
-
-})();
-</script>
-</body>
-</html>
 ```
 
 </section>
@@ -320,17 +287,19 @@ Copyright &copy; 2016-2025. The Stdlib [Authors][stdlib-authors].
 
 [mdn-typed-array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray
 
+[@stdlib/array/base/accessor]: https://github.com/stdlib-js/array-base-accessor
+
 <!-- <related-links> -->
 
-[@stdlib/stats/strided/dnanmskmax]: https://github.com/stdlib-js/stats-strided-dnanmskmax/tree/umd
+[@stdlib/stats/strided/dnanmskmax]: https://github.com/stdlib-js/stats-strided-dnanmskmax
 
-[@stdlib/stats/strided/mskmax]: https://github.com/stdlib-js/stats-strided-mskmax/tree/umd
+[@stdlib/stats/strided/mskmax]: https://github.com/stdlib-js/stats-strided-mskmax
 
-[@stdlib/stats/strided/nanmax]: https://github.com/stdlib-js/stats-strided-nanmax/tree/umd
+[@stdlib/stats/strided/nanmax]: https://github.com/stdlib-js/stats-strided-nanmax
 
-[@stdlib/stats/base/nanmskmin]: https://github.com/stdlib-js/stats-base-nanmskmin/tree/umd
+[@stdlib/stats/base/nanmskmin]: https://github.com/stdlib-js/stats-base-nanmskmin
 
-[@stdlib/stats/strided/snanmskmax]: https://github.com/stdlib-js/stats-strided-snanmskmax/tree/umd
+[@stdlib/stats/strided/snanmskmax]: https://github.com/stdlib-js/stats-strided-snanmskmax
 
 <!-- </related-links> -->
 
